@@ -1,18 +1,23 @@
 # Planka with Lyra Trello-Vibe theme baked in
 # Wraps the official Planka 2.x image and injects our custom stylesheet.
 # Built for tasks.vibeagency.net (Railway deployment).
-#
-# IMPORTANT: use ghcr.io/plankanban/planka:latest (not docker.io/plankanban/planka)
-# Planka publishes only to GHCR; Docker Hub returns 'insufficient_scope'.
 
 FROM ghcr.io/plankanban/planka:latest
 
-# Copy our custom stylesheet into the served public folder
-COPY lyra-custom.css /app/public/lyra-custom.css
+# Switch to root for filesystem mods (Planka image runs as non-root by default)
+USER root
 
-# Inject the stylesheet link into index.html.
-# Planka's index.html is served as-is from /app/public — modifying it once at
-# build time means every page load gets our theme without runtime overhead.
-RUN sed -i 's|</head>|<link rel="stylesheet" href="/lyra-custom.css"></head>|' /app/public/index.html
+# Find Planka's public folder dynamically (may be /app/public, /app/client/dist, etc).
+# RUN as one command so the variable is available across.
+RUN set -eux; \
+  PUBLIC_DIR=$(find /app -maxdepth 4 -name index.html -not -path '*/node_modules/*' -printf '%h\n' | head -1); \
+  echo "Public dir: $PUBLIC_DIR"; \
+  ls -la "$PUBLIC_DIR" || true
 
-# All other config inherited from upstream image. CMD/ENTRYPOINT unchanged.
+# Copy our custom stylesheet into the public folder via shell that resolves the path
+COPY lyra-custom.css /tmp/lyra-custom.css
+RUN set -eux; \
+  PUBLIC_DIR=$(find /app -maxdepth 4 -name index.html -not -path '*/node_modules/*' -printf '%h\n' | head -1); \
+  cp /tmp/lyra-custom.css "$PUBLIC_DIR/lyra-custom.css"; \
+  sed -i 's|</head>|<link rel="stylesheet" href="/lyra-custom.css"></head>|I' "$PUBLIC_DIR/index.html"; \
+  grep -c lyra-custom.css "$PUBLIC_DIR/index.html"
