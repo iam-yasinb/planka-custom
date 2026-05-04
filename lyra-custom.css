@@ -1,0 +1,90 @@
+/* =====================================================================
+   LYRA TRELLO-VIBE — Planka Custom Theme
+   Built 2026-05-04 for tasks.vibeagency.net
+   Targets Planka 2.x (deployed via Railway, plankanban/planka:latest)
+
+   Goal: brighten Planka into a Trello-vibe daytime-friendly dashboard.
+   Bigger fonts, white card surfaces, blue header, soft gradient board bg.
+   Per-project gradient covers (placeholder until brand background images
+   are generated via nano-banana-v2 and uploaded as project backgrounds).
+
+   Selectors target Planka's CSS Module classes via [class*="..."] attribute
+   matchers, because the hashed suffixes (e.g. _cards_18h1r_12) change on
+   each Planka build. Attribute matching survives version bumps.
+   ===================================================================== */
+
+:root {
+  --lyra-bg: #f4f5f7;
+  --lyra-card-bg: #ffffff;
+  --lyra-text: #172b4d;
+  --lyra-text-muted: #5e6c84;
+  --lyra-accent: #0079bf;
+  --lyra-nav: #0079bf;
+  --lyra-nav-2: #026aa7;
+  --lyra-shadow: 0 1px 3px rgba(9,30,66,0.13);
+  --lyra-shadow-hover: 0 4px 12px rgba(9,30,66,0.20);
+}
+
+body, body.g-root {
+  background: var(--lyra-bg) !important;
+  color: var(--lyra-text) !important;
+  font-size: 15px !important;
+}
+
+.ui.inverted.menu,
+[class*="_wrapper_jdrq3"] {
+  background: var(--lyra-nav) !important;
+  box-shadow: 0 1px 0 rgba(9,30,66,0.13) !important;
+  border: 0 !important;
+}
+.ui.inverted.menu .item,
+.ui.inverted.menu a.item,
+.ui.inverted.menu [class*="_title_"],
+.ui.inverted.menu [class*="_userName_"] {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+.ui.inverted.menu .item:hover { background: rgba(255,255,255,0.15) !important; }
+.ui.inverted.menu input { background: rgba(255,255,255,0.18) !important; color: #fff !important; border-color: rgba(255,255,255,0.3) !important; }
+.ui.inverted.menu input::placeholder { color: rgba(255,255,255,0.7) !important; }
+
+[class*="_wrapper_1u45e"] { background: var(--lyra-nav-2) !important; color: rgba(255,255,255,0.9) !important; }
+[class*="_wrapper_1u45e"] [class*="_textLink"], [class*="_wrapper_1u45e"] a { color: #fff !important; }
+
+[class*="_wrapper_mp09h"], [class*="_tabsWrapper_mp09h"] { background: var(--lyra-nav-2) !important; padding: 0 8px !important; }
+[class*="_tab_cjxaz"] { color: rgba(255,255,255,0.75) !important; font-weight: 600 !important; padding: 10px 14px !important; font-size: 14px !important; }
+[class*="_tab_cjxaz"]:hover { color: #fff !important; background: rgba(255,255,255,0.10) !important; }
+[class*="_tabActive_cjxaz"] { color: #fff !important; background: rgba(255,255,255,0.18) !important; border-bottom: 3px solid #fff !important; }
+
+[class*="_wrapper_rbzeo"] { background: rgba(0,121,191,0.08) !important; }
+
+[class*="_board_"], [class*="_boardWrapper"] { background: linear-gradient(180deg, #e3f4fc 0%, #f4f5f7 100%) !important; }
+
+[class*="_lists_11uup"] > div > div, [class*="_list_"]:not([class*="_lists_"]) { background: #ebecf0 !important; border-radius: 8px !important; }
+
+[class*="_listHeader"], [class*="_header_hsqrn"]:not([class*="_wrapper_jdrq3"] *) { font-size: 17px !important; font-weight: 700 !important; letter-spacing: -0.01em !important; color: var(--lyra-text) !important; padding: 10px 12px !important; background: transparent !important; }
+
+[class*="_card_"]:not([class*="_cards_"]):not([class*="_cardActions"]), [class*="_wrapper_18h1r"] [class*="_card_"] { background: var(--lyra-card-bg) !important; box-shadow: var(--lyra-shadow) !important; border: 0 !important; border-radius: 6px !important; color: var(--lyra-text) !important; }
+[class*="_card_"]:hover { box-shadow: var(--lyra-shadow-hover) !important; }
+
+[class*="_name_cjxaz"], [class*="_cardName"], [class*="_name_"] { font-size: 16px !important; font-weight: 600 !important; color: var(--lyra-text) !important; line-height: 1.35 !important; }
+.ui.inverted.menu [class*="_name_"], [class*="_wrapper_jdrq3"] [class*="_name_"] { color: #fff !important; }
+
+[class*="_addCard"], [class*="_addList"] { color: var(--lyra-text-muted) !important; font-size: 14px !important; }
+[class*="_addCard"]:hover, [class*="_addList"]:hover { background: rgba(9,30,66,0.06) !important; color: var(--lyra-text) !important; }
+
+[class*="_information_vr1u9"] { background: transparent !important; padding: 12px 16px !important; position: absolute !important; bottom: 12px !important; left: 0 !important; right: 0 !important; }
+[class*="_title_vr1u9"] { color: #fff !important; font-size: 22px !important; font-weight: 700 !important; text-shadow: 0 2px 8px rgba(0,0,0,0.45) !important; letter-spacing: -0.01em !important; }
+
+[class*="_cover_vr1u9"] { background: linear-gradient(135deg, #0079bf 0%, #026aa7 100%) !important; transition: filter .15s ease !important; }
+[class*="_column_suzcb"]:nth-child(1) [class*="_cover_vr1u9"] { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%) !important; }
+[class*="_column_suzcb"]:nth-child(2) [class*="_cover_vr1u9"] { background: linear-gradient(135deg, #581c87 0%, #ec4899 50%, #f59e0b 100%) !important; }
+[class*="_column_suzcb"]:nth-child(3) [class*="_cover_vr1u9"] { background: linear-gradient(135deg, #047857 0%, #f59e0b 50%, #dc2626 100%) !important; }
+[class*="_column_suzcb"]:nth-child(4) [class*="_cover_vr1u9"] { background: linear-gradient(135deg, #18181b 0%, #52525b 50%, #a1a1aa 100%) !important; }
+
+[class*="_card_suzcb"]:hover [class*="_cover_vr1u9"] { filter: brightness(1.10) !important; }
+[class*="_card_suzcb"]:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 20px rgba(9,30,66,0.20) !important; }
+
+input[placeholder*="Search"], input[type="text"] { background: #fff !important; color: var(--lyra-text) !important; border: 1px solid #dfe1e6 !important; border-radius: 6px !important; }
+
+[class*="_wrapper_suzcb"] > div:first-child, [class*="_title_suzcb"] { color: var(--lyra-text-muted) !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; font-size: 13px !important; }
